@@ -18,7 +18,13 @@ player_2 = 'O'
 while True:
 
     while True:
-        p = int(input("Enter the position of player - 1(1 to 9): "))
+        while True:
+            try:
+                p = int(input("Enter the position of player - 1(1 to 9): "))
+                break
+            except:
+                print("it only except integers.")
+
         if p in already:
             print("Don't enter the position again!")
             continue
@@ -61,7 +67,13 @@ while True:
 
     print(variable)
     while True:
-        p2 = int(input("Enter the position of player - 2(1 to 9): "))
+        while True:
+            try:
+                p2 = int(input("Enter the position of player - 2(1 to 9): "))
+                break
+            except:
+                print("it only except integers.")
+
         if p2 in already:
             print("Don't enter the position again!")
             continue
