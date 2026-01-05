@@ -14,14 +14,16 @@ print(variable)
 
 player_1 = 'X'
 player_2 = 'O'
-count = 0
 
 while True:
-    
-    p = int(input("Enter the position of player - 1(1 to 9): "))
 
-    if p in already:
-        continue
+    while True:
+        p = int(input("Enter the position of player - 1(1 to 9): "))
+        if p in already:
+            print("Don't enter the position again!")
+            continue
+        else:
+            break
 
     already.append(p)
 
@@ -53,10 +55,19 @@ while True:
         print("Player-1 won!")
         break
 
+    if len(already) == 9:
+        print("Draw!!")
+        break
+
     print(variable)
-    p2 = int(input("Enter the position of player - 2(1 to 9): "))
-    if p2 in already:
-        continue
+    while True:
+        p2 = int(input("Enter the position of player - 2(1 to 9): "))
+        if p2 in already:
+            print("Don't enter the position again!")
+            continue
+        else:
+            break
+
     already.append(p2)
     moves[p2-1] = player_2
 
@@ -87,7 +98,3 @@ while True:
         break
 
     print(variable)
-    count += 1
-    print(count)
-    if count == 5:
-        break
