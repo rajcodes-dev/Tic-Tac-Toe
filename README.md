@@ -1,2 +1,2 @@
 # Tic-Tac-Toe
-A fun game which are playing since kid.
+A fun game which we are playing since kid.
