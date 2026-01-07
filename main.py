@@ -11,6 +11,8 @@ class GameController():
 
             already = []
 
+            current_player = 'X'
+
             variable = f"""
              {1} | {2} | {3}
             ---+---+---
@@ -20,7 +22,6 @@ class GameController():
             """
 
             print(variable)
-            player_1 = 'X'
             player_2 = 'O'
             while True:
                 while True:
@@ -39,7 +40,7 @@ class GameController():
 
                 already.append(p)
 
-                moves[p-1] = player_1
+                moves[p-1] = current_player
 
                 variable = f"""
                 {moves[0]} | {moves[1]} | {moves[2]}
@@ -49,24 +50,24 @@ class GameController():
                 {moves[6]} | {moves[7]} | {moves[8]}
                 """
 
-                if moves[0] == 'X' and moves[1] == 'X' and moves[2] == 'X' or\
-                    moves[3] == 'X' and moves[4] == 'X' and moves[5] == 'X' or\
-                    moves[6] == 'X' and moves[7] == 'X' and moves[8] == 'X':
+                if moves[0] == current_player and moves[1] == current_player and moves[2] == current_player or\
+                    moves[3] == current_player and moves[4] == current_player and moves[5] == current_player or\
+                    moves[6] == current_player and moves[7] == current_player and moves[8] == current_player:
                     print(variable)
-                    print("Player-1 won!")
+                    print(f"{current_player} won!")
                     break
 
-                if moves[0] == 'X' and moves[3] == 'X' and moves[6] == 'X' or\
-                    moves[1] == 'X' and moves[4] == 'X' and moves[7] == 'X' or\
-                    moves[2] == 'X' and moves[5] == 'X' and moves[8] == 'X':
+                if moves[0] == current_player and moves[3] == current_player and moves[6] == current_player or\
+                    moves[1] == current_player and moves[4] == current_player and moves[7] == current_player or\
+                    moves[2] == current_player and moves[5] == current_player and moves[8] == current_player:
                     print(variable)
-                    print("Player-1 won!")
+                    print(f"{current_player} won!")
                     break
 
-                if (moves[0] == 'X' and moves[4] == 'X' and moves[8] == 'X') or\
-                    (moves[2] == 'X' and moves[4] == 'X' and moves[6] == 'X'):
+                if (moves[0] == current_player and moves[4] == current_player and moves[8] == current_player) or\
+                    (moves[2] == current_player and moves[4] == current_player and moves[6] == current_player):
                     print(variable)
-                    print("Player-1 won!")
+                    print(f"{current_player} won!")
                     break
 
                 if len(already) == 9:
@@ -74,52 +75,11 @@ class GameController():
                     break
 
                 print(variable)
-                while True:
-                    while True:
-                        try:
-                            p2 = int(input("Enter the position of player - 2(1 to 9): "))
-                            break
-                        except:
-                            print("it only except integers.")
+                if current_player == 'X':
+                    current_player = 'O'
+                else:
+                    current_player = 'X'
 
-                    if p2 in already:
-                        print("Don't enter the position again!")
-                        continue
-                    else:
-                        break
-
-                already.append(p2)
-                moves[p2-1] = player_2
-
-                variable = f"""
-                {moves[0]} | {moves[1]} | {moves[2]}
-                ---+---+---
-                {moves[3]} | {moves[4]} | {moves[5]} 
-                ---+---+---
-                {moves[6]} | {moves[7]} | {moves[8]}
-                """
-
-                if moves[0] == 'O' and moves[1] == 'O' and moves[2] == 'O' or\
-                    moves[3] == 'O' and moves[4] == 'O' and moves[5] == 'O' or\
-                    moves[6] == 'O' and moves[7] == 'O' and moves[8] == 'O':
-                    print(variable)
-                    print("Player-2 won!")
-                    break
-
-                if moves[0] == 'O' and moves[3] == 'O' and moves[6] == 'O' or\
-                    moves[1] == 'O' and moves[4] == 'O' and moves[7] == 'O' or\
-                    moves[2] == 'O' and moves[5] == 'O' and moves[8] == 'O':
-                    print(variable)
-                    print("Player-2 won!")
-                    break
-
-                if (moves[0] == 'O' and moves[4] == 'O' and moves[8] == 'O') or\
-                    (moves[2] == 'O' and moves[4] == 'O' and moves[6] == 'O'):
-                    print(variable)
-                    print("Player-2 won!")
-
-                print(variable)
-        
             if self.user_interface.play() == 'n':
                 break
 
