@@ -1,3 +1,5 @@
+import os
+
 class GameController():
 
     def __init__(self, user_interface):
@@ -5,9 +7,9 @@ class GameController():
 
     def run(self):
         while True:
-            moves = ['','','',
-                    '','','',
-                    '','','']
+            moves = [' ',' ',' ',
+                    ' ',' ',' ',
+                    ' ',' ',' ']
 
             already = []
 
@@ -24,8 +26,9 @@ class GameController():
             ---+---+---
              {7} | {8} | {9}
             """
-
+            self.user_interface.clear_screen()
             print(variable)
+            
             while True:
                 p = self.user_interface.get_valid_moves(already)
 
@@ -34,11 +37,11 @@ class GameController():
                 moves[p-1] = current_player
 
                 variable = f"""
-                {moves[0]} | {moves[1]} | {moves[2]}
+                 {moves[0]} | {moves[1]} | {moves[2]}
                 ---+---+---
-                {moves[3]} | {moves[4]} | {moves[5]} 
+                 {moves[3]} | {moves[4]} | {moves[5]} 
                 ---+---+---
-                {moves[6]} | {moves[7]} | {moves[8]}
+                 {moves[6]} | {moves[7]} | {moves[8]}
                 """
                 won = False
                 for a,b,c in winning_combos:
@@ -64,11 +67,17 @@ class GameController():
 
 class UserInterface:
 
+    def clear_screen(self):
+        os.system('cls')
+
     def get_valid_moves(self, already):
         while True:
             while True:
                 try:
                     p = self.user_position()
+                    if p < 1 or p > 9:
+                        print("Invalid input! Please choose 1-9.")
+                        continue
                     break
                 except:
                     print("it only except integers.")
