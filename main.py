@@ -13,6 +13,10 @@ class GameController():
 
             current_player = 'X'
 
+            winning_combos = [(0,1,2),(3,4,5),(6,7,8),
+                              (0,3,6),(1,4,7),(2,5,8),
+                              (0,4,8),(2,4,6)]
+
             variable = f"""
              {1} | {2} | {3}
             ---+---+---
@@ -22,21 +26,8 @@ class GameController():
             """
 
             print(variable)
-            player_2 = 'O'
             while True:
-                while True:
-                    while True:
-                        try:
-                            p = self.user_interface.user_position()
-                            break
-                        except:
-                            print("it only except integers.")
-
-                    if p in already:
-                        print("Don't enter the position again!")
-                        continue
-                    else:
-                        break
+                p = self.user_interface.get_valid_moves(already)
 
                 already.append(p)
 
@@ -49,25 +40,14 @@ class GameController():
                 ---+---+---
                 {moves[6]} | {moves[7]} | {moves[8]}
                 """
-
-                if moves[0] == current_player and moves[1] == current_player and moves[2] == current_player or\
-                    moves[3] == current_player and moves[4] == current_player and moves[5] == current_player or\
-                    moves[6] == current_player and moves[7] == current_player and moves[8] == current_player:
-                    print(variable)
-                    print(f"{current_player} won!")
-                    break
-
-                if moves[0] == current_player and moves[3] == current_player and moves[6] == current_player or\
-                    moves[1] == current_player and moves[4] == current_player and moves[7] == current_player or\
-                    moves[2] == current_player and moves[5] == current_player and moves[8] == current_player:
-                    print(variable)
-                    print(f"{current_player} won!")
-                    break
-
-                if (moves[0] == current_player and moves[4] == current_player and moves[8] == current_player) or\
-                    (moves[2] == current_player and moves[4] == current_player and moves[6] == current_player):
-                    print(variable)
-                    print(f"{current_player} won!")
+                won = False
+                for a,b,c in winning_combos:
+                    if moves[a] == current_player and moves[b] == current_player and moves[c] == current_player:
+                        print(variable)
+                        print(f"{current_player} won!")
+                        won = True
+                        break
+                if won == True:
                     break
 
                 if len(already) == 9:
@@ -79,14 +59,28 @@ class GameController():
                     current_player = 'O'
                 else:
                     current_player = 'X'
-
-            if self.user_interface.play() == 'n':
+            if  self.user_interface.play() == 'n':
                 break
 
 class UserInterface:
 
+    def get_valid_moves(self, already):
+        while True:
+            while True:
+                try:
+                    p = self.user_position()
+                    break
+                except:
+                    print("it only except integers.")
+
+            if p in already:
+                print("Don't enter the position again!")
+                continue
+            else:
+                return p
+
     def user_position(self):
-        return int(input("Enter the position of player - 1(1 to 9): "))
+        return int(input("Enter the position(1 to 9): "))
 
     def play(self): 
         return input("Do you want to play again(y/n)?: ").lower().strip()
